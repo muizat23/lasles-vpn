@@ -30,50 +30,9 @@ export default function Footer() {
 
           {/* Social Icons */}
           <div className="mt-8 flex gap-4">
-            <div
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-[15px] font-bold shadow-sm transition-all duration-300 cursor-pointer"
-              style={{ color: colors.primary }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = colors.primary;
-                e.currentTarget.style.color = colors.white;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = colors.white;
-                e.currentTarget.style.color = colors.primary;
-              }}
-            >
-              f
-            </div>
-
-            <div
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-[15px] font-bold shadow-sm transition-all duration-300 cursor-pointer"
-              style={{ color: colors.primary }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = colors.primary;
-                e.currentTarget.style.color = colors.white;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = colors.white;
-                e.currentTarget.style.color = colors.primary;
-              }}
-            >
-              𝕏
-            </div>
-
-            <div
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-[15px] font-bold shadow-sm transition-all duration-300 cursor-pointer"
-              style={{ color: colors.primary }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = colors.primary;
-                e.currentTarget.style.color = colors.white;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = colors.white;
-                e.currentTarget.style.color = colors.primary;
-              }}
-            >
-              ◎
-            </div>
+            <SocialIcon>f</SocialIcon>
+            <SocialIcon>𝕏</SocialIcon>
+            <SocialIcon>◎</SocialIcon>
           </div>
 
           <p
@@ -93,28 +52,13 @@ export default function Footer() {
             Product
           </h3>
 
-          <ul
-            className="space-y-4 text-[16px] font-medium"
-            style={{ color: colors.text }}
-          >
-            <li className="cursor-pointer transition-colors duration-300 hover:underline">
-              Download
-            </li>
-            <li className="cursor-pointer transition-colors duration-300 hover:underline">
-              Pricing
-            </li>
-            <li className="cursor-pointer transition-colors duration-300 hover:underline">
-              Locations
-            </li>
-            <li className="cursor-pointer transition-colors duration-300 hover:underline">
-              Server
-            </li>
-            <li className="cursor-pointer transition-colors duration-300 hover:underline">
-              Countries
-            </li>
-            <li className="cursor-pointer transition-colors duration-300 hover:underline">
-              Blog
-            </li>
+          <ul className="space-y-4">
+            <FooterLink>Download</FooterLink>
+            <FooterLink>Pricing</FooterLink>
+            <FooterLink>Locations</FooterLink>
+            <FooterLink>Server</FooterLink>
+            <FooterLink>Countries</FooterLink>
+            <FooterLink>Blog</FooterLink>
           </ul>
         </div>
 
@@ -127,28 +71,13 @@ export default function Footer() {
             Engage
           </h3>
 
-          <ul
-            className="space-y-4 text-[16px] font-medium"
-            style={{ color: colors.text }}
-          >
-            <li className="cursor-pointer transition-colors duration-300 hover:underline">
-              LaslesVPN ?
-            </li>
-            <li className="cursor-pointer transition-colors duration-300 hover:underline">
-              FAQ
-            </li>
-            <li className="cursor-pointer transition-colors duration-300 hover:underline">
-              Tutorials
-            </li>
-            <li className="cursor-pointer transition-colors duration-300 hover:underline">
-              About Us
-            </li>
-            <li className="cursor-pointer transition-colors duration-300 hover:underline">
-              Privacy Policy
-            </li>
-            <li className="cursor-pointer transition-colors duration-300 hover:underline">
-              Terms of Service
-            </li>
+          <ul className="space-y-4">
+            <FooterLink>LaslesVPN ?</FooterLink>
+            <FooterLink>FAQ</FooterLink>
+            <FooterLink>Tutorials</FooterLink>
+            <FooterLink>About Us</FooterLink>
+            <FooterLink>Privacy Policy</FooterLink>
+            <FooterLink>Terms of Service</FooterLink>
           </ul>
         </div>
 
@@ -161,20 +90,49 @@ export default function Footer() {
             Earn Money
           </h3>
 
-          <ul
-            className="space-y-4 text-[16px] font-medium"
-            style={{ color: colors.text }}
-          >
-            <li className="cursor-pointer transition-colors duration-300 hover:underline">
-              Affiliate
-            </li>
-            <li className="cursor-pointer transition-colors duration-300 hover:underline">
-              Become Partner
-            </li>
+          <ul className="space-y-4">
+            <FooterLink>Affiliate</FooterLink>
+            <FooterLink>Become Partner</FooterLink>
           </ul>
         </div>
 
       </div>
     </footer>
+  );
+}
+
+function FooterLink({ children }) {
+  return (
+    <li
+      className="cursor-pointer text-[16px] font-medium transition-colors duration-300"
+      style={{ color: colors.text }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.color = colors.primary;
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.color = colors.text;
+      }}
+    >
+      {children}
+    </li>
+  );
+}
+
+function SocialIcon({ children }) {
+  return (
+    <div
+      className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-white text-[15px] font-bold shadow-sm transition-all duration-300"
+      style={{ color: colors.primary }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.backgroundColor = colors.primary;
+        e.currentTarget.style.color = colors.white;
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.backgroundColor = colors.white;
+        e.currentTarget.style.color = colors.primary;
+      }}
+    >
+      {children}
+    </div>
   );
 }
