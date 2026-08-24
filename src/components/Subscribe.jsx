@@ -5,9 +5,10 @@ const { colors } = theme;
 export default function Subscribe() {
   return (
     <section className="w-full pb-24">
-      <div className="max-w-[1160px] mx-auto px-6">
+      <div className="max-w-[1060px] mx-auto px-6">
+
         <div
-          className="flex w-full flex-col items-center justify-between gap-8 rounded-[14px] bg-white px-10 py-10 shadow-[0_15px_40px_rgba(0,0,0,0.08)] md:flex-row md:px-14 md:py-10"
+          className="flex w-full flex-col items-center justify-between gap-8 rounded-[14px] bg-white px-8 py-10 shadow-[0_15px_40px_rgba(0,0,0,0.08)] md:flex-row md:px-12 md:py-10"
         >
 
           {/* Text */}
@@ -31,23 +32,26 @@ export default function Subscribe() {
 
           {/* Button */}
           <button
-            className="rounded-[10px] px-10 py-5 text-[17px] font-bold transition-all duration-300"
+            className="rounded-[10px] px-9 py-4 text-[17px] font-bold transition-all duration-300"
             style={{
               backgroundColor: colors.primary,
               color: colors.white,
               boxShadow: `0 12px 25px ${colors.primary}40`,
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = `0 16px 32px ${colors.primary}66`;
+              e.currentTarget.style.boxShadow =
+                `0 16px 32px ${colors.primary}66`;
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = `0 12px 25px ${colors.primary}40`;
+              e.currentTarget.style.boxShadow =
+                `0 12px 25px ${colors.primary}40`;
             }}
           >
             Subscribe Now
           </button>
 
         </div>
+
       </div>
     </section>
   );
