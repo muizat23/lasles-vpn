@@ -44,7 +44,7 @@ export default function Testimonials() {
     setPage((p) => Math.min(totalPages - 1, p + 1));
 
   return (
-    <section className="w-full bg-white pt-28 pb-28">
+    <section className="w-full bg-white pt-28 pb-8">
 
       {/* Heading */}
       <div className="text-center">
