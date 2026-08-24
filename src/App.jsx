@@ -11,7 +11,7 @@ import Footer from "./components/Footer";
 
 function App() {
   return (
-    <div className="min-h-screen bg-white pt-[76px]">
+    <div className="min-h-screen pb-20 md:pb-0">
       <Navbar />
 
       <section id="about">
