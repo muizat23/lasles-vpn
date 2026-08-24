@@ -39,6 +39,7 @@ export default function Testimonials() {
   const [selected, setSelected] = useState(0);
 
   const goToPrev = () => setPage((p) => Math.max(0, p - 1));
+
   const goToNext = () =>
     setPage((p) => Math.min(totalPages - 1, p + 1));
 
@@ -51,9 +52,9 @@ export default function Testimonials() {
           className="text-[40px] leading-[1.3] font-medium"
           style={{ color: colors.heading }}
         >
-          Trusted by Thousands  <br /> of
-         
-          Happy Customer
+          Trusted by Thousands
+          <br />
+          of Happy Customer
         </h2>
 
         <p
@@ -80,7 +81,9 @@ export default function Testimonials() {
               <div
                 key={index}
                 className="px-3"
-                style={{ width: `${100 / testimonials.length}%` }}
+                style={{
+                  width: `${100 / testimonials.length}%`,
+                }}
               >
                 <TestimonialCard
                   testimonial={testimonial}
@@ -156,7 +159,7 @@ function TestimonialCard({ testimonial, active, onClick }) {
       onClick={onClick}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="min-h-[300px] rounded-[14px] p-9 flex flex-col cursor-pointer transition-all duration-200"
+      className="h-[320px] rounded-[14px] p-9 flex flex-col cursor-pointer transition-all duration-200"
       style={{
         borderWidth: active ? "2px" : "1px",
         borderStyle: "solid",
