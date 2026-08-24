@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import theme from "../constants/theme";
 import Ellipse from "../assets/images/Ellipse 175.svg";
 import Ellipse2 from "../assets/images/Ellipse 175 (1).svg";
@@ -6,7 +6,7 @@ import Ellipse3 from "../assets/images/Ellipse 175 (2).svg";
 
 const { colors } = theme;
 
-const baseTestimonials = [
+const testimonials = [
   {
     name: "Viezh Robert",
     location: "Warsaw, Poland",
@@ -30,20 +30,46 @@ const baseTestimonials = [
   },
 ];
 
-const testimonials = [...baseTestimonials, ...baseTestimonials];
-const PAGE_SIZE = 3;
-const totalPages = Math.ceil(testimonials.length / PAGE_SIZE);
-
 export default function Testimonials() {
   const [page, setPage] = useState(0);
   const [selected, setSelected] = useState(0);
 
+  const touchStart = useRef(null);
+  const touchEnd = useRef(null);
+
   const goToPrev = () => {
     setPage((p) => Math.max(0, p - 1));
+    setSelected((s) => Math.max(0, s - 1));
   };
 
   const goToNext = () => {
-    setPage((p) => Math.min(totalPages - 1, p + 1));
+    setPage((p) => Math.min(testimonials.length - 1, p + 1));
+    setSelected((s) => Math.min(testimonials.length - 1, s + 1));
+  };
+
+  const handleTouchStart = (e) => {
+    touchStart.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e) => {
+    touchEnd.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart.current || !touchEnd.current) return;
+
+    const distance = touchStart.current - touchEnd.current;
+
+    if (distance > 50) {
+      goToNext();
+    }
+
+    if (distance < -50) {
+      goToPrev();
+    }
+
+    touchStart.current = null;
+    touchEnd.current = null;
   };
 
   return (
@@ -71,21 +97,22 @@ export default function Testimonials() {
 
       {/* Cards */}
       <div className="max-w-[1160px] mx-auto px-3 md:px-6 mt-10 md:mt-14">
-        <div className="overflow-hidden">
+        <div
+          className="overflow-hidden touch-pan-y cursor-grab active:cursor-grabbing"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
           <div
             className="flex transition-transform duration-500 ease-in-out"
             style={{
-              width: `${totalPages * 100}%`,
-              transform: `translateX(-${page * (100 / totalPages)}%)`,
+              transform: `translateX(-${page * 100}%)`,
             }}
           >
             {testimonials.map((testimonial, index) => (
               <div
                 key={index}
-                className="shrink-0 px-2 md:px-3"
-                style={{
-                  width: `${100 / testimonials.length}%`,
-                }}
+                className="w-full md:w-1/3 shrink-0 px-2 md:px-3"
               >
                 <TestimonialCard
                   testimonial={testimonial}
@@ -100,21 +127,22 @@ export default function Testimonials() {
         {/* Controls */}
         <div className="flex items-center justify-between mt-8 md:mt-10">
           {/* Dots */}
-          <div className="flex items-center gap-2 md:gap-3">
-            {Array.from({ length: totalPages }).map((_, dotIndex) => (
+          <div className="flex items-center gap-2">
+            {testimonials.map((_, index) => (
               <span
-                key={dotIndex}
-                onClick={() => setPage(dotIndex)}
-                className={`rounded-full cursor-pointer ${
-                  dotIndex === page
-                    ? "w-8 md:w-10 h-2.5 md:h-3"
-                    : "w-2.5 md:w-3 h-2.5 md:h-3"
+                key={index}
+                onClick={() => {
+                  setPage(index);
+                  setSelected(index);
+                }}
+                className={`rounded-full cursor-pointer transition-all duration-300 ${
+                  index === page
+                    ? "w-8 h-2.5"
+                    : "w-2.5 h-2.5"
                 }`}
                 style={{
                   backgroundColor:
-                    dotIndex === page
-                      ? colors.primary
-                      : "#DDE0E4",
+                    index === page ? colors.primary : "#DDE0E4",
                 }}
               />
             ))}
@@ -136,7 +164,7 @@ export default function Testimonials() {
 
             <button
               onClick={goToNext}
-              disabled={page === totalPages - 1}
+              disabled={page === testimonials.length - 1}
               className="w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center text-xl md:text-2xl text-white transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed"
               style={{
                 backgroundColor: colors.primary,
@@ -160,7 +188,7 @@ function TestimonialCard({ testimonial, active, onClick }) {
       onClick={onClick}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="min-h-[300px] md:min-h-[320px] h-auto rounded-[14px] p-5 md:p-8 flex flex-col cursor-pointer transition-all duration-200"
+      className="min-h-[300px] md:min-h-[320px] rounded-[14px] p-5 md:p-8 flex flex-col cursor-pointer transition-all duration-200"
       style={{
         borderWidth: active ? "2px" : "1px",
         borderStyle: "solid",
