@@ -1,6 +1,6 @@
 import React from "react";
 import theme from "../constants/theme";
-import Free from '../assets/images/Free.svg';
+import Free from "../assets/images/Free.svg";
 
 const { colors } = theme;
 
@@ -42,18 +42,19 @@ const plans = [
 
 export default function Pricing() {
   return (
-    <section className="max-w-[1060px] mx-auto px-6 py-20">
+    <section className="max-w-[1160px] mx-auto px-6 py-24">
+
       {/* Heading */}
-      <div className="text-center mb-12">
+      <div className="text-center mb-16">
         <h2
-          className="text-[28px] font-bold"
+          className="text-[40px] font-bold"
           style={{ color: colors.heading }}
         >
           Choose Your Plan
         </h2>
 
         <p
-          className="mt-4 text-[13px] leading-6"
+          className="mt-5 text-[18px] font-medium leading-8"
           style={{ color: colors.text }}
         >
           Let's choose the package that is best for you and explore it happily
@@ -63,12 +64,11 @@ export default function Pricing() {
       </div>
 
       {/* Plans */}
-      <div className="grid md:grid-cols-3 gap-8">
-        {plans.map((plan, index) => (
+      <div className="grid md:grid-cols-3 gap-10">
+        {plans.map((plan) => (
           <PlanCard
             key={plan.name}
             plan={plan}
-            premium={index === 2}
           />
         ))}
       </div>
@@ -76,39 +76,48 @@ export default function Pricing() {
   );
 }
 
-function PlanCard({ plan, premium }) {
+function PlanCard({ plan }) {
   return (
     <div
-      className="min-h-[570px] rounded-[10px] border px-8 py-10 flex flex-col items-center"
+      className="min-h-[620px] rounded-[14px] border-2 px-10 py-12 flex flex-col items-center transition-all duration-300 hover:-translate-y-3 hover:shadow-2xl"
       style={{
-        borderColor: premium ? colors.primary : "#DDDDDD",
+        borderColor: "#DDDDDD",
       }}
     >
+
       {/* Plan image */}
-      <div className="w-[145px] h-[120px] flex items-center justify-center">
-        <img src={Free} alt="" className="w-20 h-20 object-contain" />
+      <div className="w-[170px] h-[140px] flex items-center justify-center">
+        <img
+          src={Free}
+          alt=""
+          className="w-[105px] h-[105px] object-contain"
+        />
       </div>
 
+      {/* Plan name */}
       <h3
-        className="mt-6 text-[16px] font-medium"
+        className="mt-8 text-[22px] font-semibold"
         style={{ color: colors.heading }}
       >
         {plan.name}
       </h3>
 
       {/* Features */}
-      <div className="mt-8 w-full space-y-4">
+      <div className="mt-10 w-full space-y-5">
         {plan.features.map((feature) => (
-          <div key={feature} className="flex items-center gap-3">
+          <div
+            key={feature}
+            className="flex items-center gap-4"
+          >
             <span
-              className="text-[12px]"
+              className="text-[18px] font-bold"
               style={{ color: colors.success }}
             >
               ✓
             </span>
 
             <span
-              className="text-[12px]"
+              className="text-[16px] font-medium"
               style={{ color: colors.text }}
             >
               {feature}
@@ -118,24 +127,36 @@ function PlanCard({ plan, premium }) {
       </div>
 
       {/* Bottom */}
-      <div className="mt-auto text-center">
+      <div className="mt-auto text-center pt-10">
+
+        {/* Price */}
         <p
-          className="text-[16px] font-bold"
+          className="text-[24px] font-bold"
           style={{ color: colors.heading }}
         >
           {plan.price}
         </p>
 
+        {/* Select button */}
         <button
-          className="mt-4 min-w-[130px] rounded-full border px-8 py-2 text-[12px] font-medium"
+          className="mt-5 min-w-[170px] rounded-full border-2 px-8 py-3.5 text-[17px] font-semibold transition-all duration-300"
           style={{
             borderColor: colors.primary,
-            color: premium ? colors.white : colors.primary,
-            backgroundColor: premium ? colors.primary : colors.white,
+            color: colors.primary,
+            backgroundColor: colors.white,
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = colors.primary;
+            e.currentTarget.style.color = colors.white;
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = colors.white;
+            e.currentTarget.style.color = colors.primary;
           }}
         >
           Select
         </button>
+
       </div>
     </div>
   );

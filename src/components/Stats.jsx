@@ -20,13 +20,13 @@ export default function Stats() {
 
             <div>
               <h3
-                className="text-xl font-bold"
+                className="text-2xl font-bold"
                 style={{ color: colors.heading }}
               >
                 90+
               </h3>
               <p
-                className="text-sm"
+                className="text-base font-medium"
                 style={{ color: colors.text }}
               >
                 Users
@@ -45,13 +45,13 @@ export default function Stats() {
 
             <div>
               <h3
-                className="text-xl font-bold"
+                className="text-2xl font-bold"
                 style={{ color: colors.heading }}
               >
                 30+
               </h3>
               <p
-                className="text-sm"
+                className="text-base font-medium"
                 style={{ color: colors.text }}
               >
                 Locations
@@ -70,13 +70,13 @@ export default function Stats() {
 
             <div>
               <h3
-                className="text-xl font-bold"
+                className="text-2xl font-bold"
                 style={{ color: colors.heading }}
               >
                 50+
               </h3>
               <p
-                className="text-sm"
+                className="text-base font-medium"
                 style={{ color: colors.text }}
               >
                 Servers

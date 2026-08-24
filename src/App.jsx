@@ -9,21 +9,33 @@ import Testimonials from "./components/Testimonials";
 import Subscribe from "./components/Subscribe";
 import Footer from "./components/Footer";
 
-
 function App() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white pt-[76px]">
       <Navbar />
-      <Hero />
-      <Stats />
-      <Features />
-      <Pricing />
+
+      <section id="about">
+        <Hero />
+        <Stats />
+      </section>
+
+      <section id="features">
+        <Features />
+      </section>
+
+      <section id="pricing">
+        <Pricing />
+      </section>
+
       <Network />
       <Sponsors />
-      <Testimonials />
+
+      <section id="testimonials">
+        <Testimonials />
+      </section>
+
       <Subscribe />
       <Footer />
-    
     </div>
   );
 }
