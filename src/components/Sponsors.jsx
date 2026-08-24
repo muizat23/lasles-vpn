@@ -3,8 +3,8 @@ import Sponsored from "../assets/images/Sponsored.svg";
 
 export default function Sponsors() {
   return (
-    <section className="w-full py-12">
-      <div className="max-w-[1060px] mx-auto px-6 overflow-x-auto scrollbar-hide">
+<section className="max-w-[1060px] mx-auto px-6 py-2">     
+   <div className="max-w-[1060px] mx-auto px-6 overflow-x-auto scrollbar-hide">
         <img
           src={Sponsored}
           alt="Sponsored by Netflix, Reddit, Amazon, Discord and Spotify"

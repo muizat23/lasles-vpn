@@ -4,16 +4,15 @@ const { colors } = theme;
 
 export default function Subscribe() {
   return (
-    <section className="w-full pb-24">
-      <div className="max-w-[1160px] mx-auto px-6">
+    <section className="w-full pb-12 md:pb-24">
+      <div className="max-w-[1160px] mx-auto px-4 md:px-6">
         <div
-          className="flex w-full flex-col items-center justify-between gap-8 rounded-[14px] bg-white px-10 py-10 shadow-[0_15px_40px_rgba(0,0,0,0.08)] md:flex-row md:px-14 md:py-10"
+          className="flex w-full flex-col items-center justify-between gap-7 md:gap-8 rounded-[14px] bg-white px-6 py-8 md:px-14 md:py-10 shadow-[0_15px_40px_rgba(0,0,0,0.08)] md:flex-row"
         >
-
           {/* Text */}
           <div className="text-center md:text-left">
             <h2
-              className="text-[36px] font-semibold leading-[1.3]"
+              className="text-[26px] md:text-[36px] font-semibold leading-[1.3]"
               style={{ color: colors.heading }}
             >
               Subscribe Now for
@@ -22,7 +21,7 @@ export default function Subscribe() {
             </h2>
 
             <p
-              className="mt-4 text-[17px] font-medium leading-7"
+              className="mt-3 md:mt-4 text-[14px] md:text-[17px] font-medium leading-6 md:leading-7"
               style={{ color: colors.text }}
             >
               Let's subscribe with us and find the fun.
@@ -31,7 +30,7 @@ export default function Subscribe() {
 
           {/* Button */}
           <button
-            className="rounded-[10px] px-10 py-5 text-[17px] font-bold transition-all duration-300"
+            className="w-full md:w-auto rounded-[10px] px-8 md:px-10 py-4 md:py-5 text-[15px] md:text-[17px] font-bold transition-all duration-300"
             style={{
               backgroundColor: colors.primary,
               color: colors.white,
@@ -46,7 +45,6 @@ export default function Subscribe() {
           >
             Subscribe Now
           </button>
-
         </div>
       </div>
     </section>
