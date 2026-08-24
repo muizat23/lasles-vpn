@@ -1,15 +1,50 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import theme from "../constants/theme";
 import Logo from "../assets/images/Logo.svg";
 
 const { colors } = theme;
 
+const sections = [
+  { id: "about", label: "About", icon: "ⓘ" },
+  { id: "features", label: "Feature", icon: "◎" },
+  { id: "pricing", label: "Pricing", icon: "$" },
+  { id: "testimonials", label: "Testimonial", icon: "◌" },
+];
+
 export default function Navbar() {
+  const [activeSection, setActiveSection] = useState("about");
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + 150;
+
+      let currentSection = "about";
+
+      sections.forEach((section) => {
+        const element = document.getElementById(section.id);
+
+        if (element && element.offsetTop <= scrollPosition) {
+          currentSection = section.id;
+        }
+      });
+
+      setActiveSection(currentSection);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <>
       {/* Top Navbar */}
       <nav
-        className="w-full fixed top-0 left-0 z-50 shadow-sm"
+        className="fixed top-0 left-0 z-50 w-full shadow-sm"
         style={{ backgroundColor: colors.white }}
       >
         <div className="max-w-[1160px] mx-auto px-5 sm:px-6 h-[76px] md:h-[90px]">
@@ -24,10 +59,33 @@ export default function Navbar() {
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-10">
-              <NavLink href="#about">About</NavLink>
-              <NavLink href="#features">Features</NavLink>
-              <NavLink href="#pricing">Pricing</NavLink>
-              <NavLink href="#testimonials">Testimonials</NavLink>
+              <NavLink
+                href="#about"
+                active={activeSection === "about"}
+              >
+                About
+              </NavLink>
+
+              <NavLink
+                href="#features"
+                active={activeSection === "features"}
+              >
+                Features
+              </NavLink>
+
+              <NavLink
+                href="#pricing"
+                active={activeSection === "pricing"}
+              >
+                Pricing
+              </NavLink>
+
+              <NavLink
+                href="#testimonials"
+                active={activeSection === "testimonials"}
+              >
+                Testimonials
+              </NavLink>
             </div>
 
             {/* Auth */}
@@ -65,24 +123,23 @@ export default function Navbar() {
                 Sign Up
               </a>
             </div>
-
           </div>
         </div>
       </nav>
 
       {/* Mobile Bottom Navigation */}
-      <div
-        className="md:hidden fixed bottom-0 left-0 z-50 w-full bg-white border-t shadow-[0_-5px_20px_rgba(0,0,0,0.06)]"
-      >
+      <div className="md:hidden fixed bottom-0 left-0 z-50 w-full bg-white border-t shadow-[0_-5px_20px_rgba(0,0,0,0.06)]">
         <div className="grid grid-cols-4 h-[72px]">
 
-          <MobileNavItem href="#about" icon="ⓘ" label="About" />
-
-          <MobileNavItem href="#features" icon="◎" label="Feature" />
-
-          <MobileNavItem href="#pricing" icon="$" label="Pricing" />
-
-          <MobileNavItem href="#testimonials" icon="◌" label="Testimonial" />
+          {sections.map((section) => (
+            <MobileNavItem
+              key={section.id}
+              href={`#${section.id}`}
+              icon={section.icon}
+              label={section.label}
+              active={activeSection === section.id}
+            />
+          ))}
 
         </div>
       </div>
@@ -90,20 +147,13 @@ export default function Navbar() {
   );
 }
 
-function NavLink({ href, children }) {
+function NavLink({ href, children, active }) {
   return (
     <a
       href={href}
-      className="text-[17px] font-medium transition-colors duration-300"
-      style={{ color: colors.text }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.color = colors.primary;
-        e.currentTarget.style.textDecoration = "underline";
-        e.currentTarget.style.textUnderlineOffset = "4px";
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.color = colors.text;
-        e.currentTarget.style.textDecoration = "none";
+      className="text-[17px] font-medium transition-all duration-300"
+      style={{
+        color: active ? colors.primary : colors.text,
       }}
     >
       {children}
@@ -111,20 +161,21 @@ function NavLink({ href, children }) {
   );
 }
 
-function MobileNavItem({ href, icon, label }) {
+function MobileNavItem({ href, icon, label, active }) {
   return (
     <a
       href={href}
-      className="flex flex-col items-center justify-center gap-1 text-[13px] font-medium transition-colors duration-300"
-      style={{ color: colors.text }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.color = colors.primary;
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.color = colors.text;
+      className="flex flex-col items-center justify-center gap-1 text-[13px] font-medium transition-all duration-300"
+      style={{
+        color: active ? colors.primary : colors.text,
       }}
     >
-      <span className="text-[24px] leading-none">
+      <span
+        className="text-[24px] leading-none transition-transform duration-300"
+        style={{
+          transform: active ? "scale(1.1)" : "scale(1)",
+        }}
+      >
         {icon}
       </span>
 
