@@ -1,13 +1,91 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "../assets/images/Logo.svg";
 import theme from "../constants/theme";
+import { supabase } from "../lib/supabase";
 
 const { colors } = theme;
 
 export default function SignUp() {
+  const navigate = useNavigate();
+
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    setError("");
+    setSuccess("");
+
+    if (!form.name || !form.email || !form.password || !form.confirmPassword) {
+      setError("Please fill in all fields.");
+      return;
+    }
+
+    if (form.password.length < 6) {
+      setError("Password must be at least 6 characters.");
+      return;
+    }
+
+    if (form.password !== form.confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      const { data, error } = await supabase.auth.signUp({
+        email: form.email,
+        password: form.password,
+        options: {
+          data: {
+            name: form.name,
+          },
+        },
+      });
+
+      if (error) {
+        throw error;
+      }
+
+      if (data.user) {
+        setSuccess(
+          "Account created successfully! Check your email to confirm your account."
+        );
+      }
+
+      setForm({
+        name: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+      });
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-white flex items-center justify-center px-5 py-10">
@@ -31,18 +109,33 @@ export default function SignUp() {
               className="text-[30px] md:text-[34px] font-semibold"
               style={{ color: colors.heading }}
             >
-              Create an Account
+              Create Account
             </h1>
 
             <p
               className="mt-3 text-[15px] md:text-[16px]"
               style={{ color: colors.text }}
             >
-              Join LaslesVPN and enjoy secure browsing
+              Create your LaslesVPN account
             </p>
           </div>
 
-          <form className="mt-8">
+          {/* Error */}
+          {error && (
+            <div className="mt-6 rounded-[8px] bg-red-50 px-4 py-3 text-[14px] text-red-600">
+              {error}
+            </div>
+          )}
+
+          {/* Success */}
+          {success && (
+            <div className="mt-6 rounded-[8px] bg-green-50 px-4 py-3 text-[14px] text-green-600">
+              {success}
+            </div>
+          )}
+
+          {/* Form */}
+          <form onSubmit={handleSubmit} className="mt-8">
 
             {/* Name */}
             <div>
@@ -55,8 +148,11 @@ export default function SignUp() {
 
               <input
                 type="text"
+                name="name"
+                value={form.name}
+                onChange={handleChange}
                 placeholder="Enter your full name"
-                className="w-full rounded-[8px] border border-[#DDDDDD] px-4 py-3.5 text-[15px] outline-none transition-all duration-300 focus:border-[#F53855]"
+                className="w-full rounded-[8px] border border-[#DDDDDD] px-4 py-3.5 text-[15px] outline-none focus:border-[#F53855]"
               />
             </div>
 
@@ -71,8 +167,11 @@ export default function SignUp() {
 
               <input
                 type="email"
+                name="email"
+                value={form.email}
+                onChange={handleChange}
                 placeholder="Enter your email"
-                className="w-full rounded-[8px] border border-[#DDDDDD] px-4 py-3.5 text-[15px] outline-none transition-all duration-300 focus:border-[#F53855]"
+                className="w-full rounded-[8px] border border-[#DDDDDD] px-4 py-3.5 text-[15px] outline-none focus:border-[#F53855]"
               />
             </div>
 
@@ -88,8 +187,11 @@ export default function SignUp() {
               <div className="relative">
                 <input
                   type={showPassword ? "text" : "password"}
+                  name="password"
+                  value={form.password}
+                  onChange={handleChange}
                   placeholder="Create a password"
-                  className="w-full rounded-[8px] border border-[#DDDDDD] px-4 py-3.5 pr-16 text-[15px] outline-none transition-all duration-300 focus:border-[#F53855]"
+                  className="w-full rounded-[8px] border border-[#DDDDDD] px-4 py-3.5 pr-16 text-[15px] outline-none focus:border-[#F53855]"
                 />
 
                 <button
@@ -115,8 +217,11 @@ export default function SignUp() {
               <div className="relative">
                 <input
                   type={showConfirmPassword ? "text" : "password"}
+                  name="confirmPassword"
+                  value={form.confirmPassword}
+                  onChange={handleChange}
                   placeholder="Confirm your password"
-                  className="w-full rounded-[8px] border border-[#DDDDDD] px-4 py-3.5 pr-16 text-[15px] outline-none transition-all duration-300 focus:border-[#F53855]"
+                  className="w-full rounded-[8px] border border-[#DDDDDD] px-4 py-3.5 pr-16 text-[15px] outline-none focus:border-[#F53855]"
                 />
 
                 <button
@@ -132,31 +237,17 @@ export default function SignUp() {
               </div>
             </div>
 
-            {/* Terms */}
-            <label className="flex items-start gap-2 mt-5 cursor-pointer">
-              <input
-                type="checkbox"
-                className="w-4 h-4 mt-1 accent-[#F53855]"
-              />
-
-              <span
-                className="text-[13px] leading-5"
-                style={{ color: colors.text }}
-              >
-                I agree to the Terms of Service and Privacy Policy.
-              </span>
-            </label>
-
             {/* Sign Up */}
             <button
               type="submit"
-              className="w-full mt-7 rounded-[8px] py-4 text-[16px] font-bold text-white transition-all duration-300 hover:opacity-90"
+              disabled={loading}
+              className="w-full mt-7 rounded-[8px] py-4 text-[16px] font-bold text-white transition-all duration-300 disabled:opacity-60"
               style={{
                 backgroundColor: colors.primary,
                 boxShadow: `0 12px 25px ${colors.primary}40`,
               }}
             >
-              Create Account
+              {loading ? "Creating Account..." : "Create Account"}
             </button>
 
           </form>
@@ -167,6 +258,7 @@ export default function SignUp() {
             style={{ color: colors.text }}
           >
             Already have an account?{" "}
+
             <Link
               to="/signin"
               className="font-semibold"

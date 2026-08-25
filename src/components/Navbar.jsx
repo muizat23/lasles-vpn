@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import theme from "../constants/theme";
 import Logo from "../assets/images/Logo.svg";
 
@@ -90,21 +91,22 @@ export default function Navbar() {
 
             {/* Auth */}
             <div className="flex items-center gap-4 sm:gap-6">
-              <button
-                className="text-[15px] sm:text-[17px] font-semibold transition-colors duration-300"
-                style={{ color: colors.heading }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = colors.primary;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = colors.heading;
-                }}
-              >
-                Sign In
-              </button>
+              <Link
+  to="/signin"
+  className="text-[15px] sm:text-[17px] font-semibold transition-colors duration-300"
+  style={{ color: colors.heading }}
+  onMouseEnter={(e) => {
+    e.currentTarget.style.color = colors.primary;
+  }}
+  onMouseLeave={(e) => {
+    e.currentTarget.style.color = colors.heading;
+  }}
+>
+  Sign In
+</Link>
 
-              <a
-                href="#pricing"
+              <Link
+                to="/signup"
                 className="text-[15px] sm:text-[17px] font-semibold rounded-full px-5 sm:px-7 md:px-8 py-2 sm:py-2.5 md:py-3 border-2 transition-all duration-300"
                 style={{
                   color: colors.primary,
@@ -121,7 +123,7 @@ export default function Navbar() {
                 }}
               >
                 Sign Up
-              </a>
+              </Link>
             </div>
           </div>
         </div>
