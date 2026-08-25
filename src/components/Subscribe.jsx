@@ -29,22 +29,23 @@ export default function Subscribe() {
           </div>
 
           {/* Button */}
-          <button
-            className="w-full md:w-auto rounded-[10px] px-8 md:px-10 py-4 md:py-5 text-[15px] md:text-[17px] font-bold transition-all duration-300"
-            style={{
-              backgroundColor: colors.primary,
-              color: colors.white,
-              boxShadow: `0 12px 25px ${colors.primary}40`,
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = `0 16px 32px ${colors.primary}66`;
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = `0 12px 25px ${colors.primary}40`;
-            }}
-          >
-            Subscribe Now
-          </button>
+         <a
+  href="#pricing"
+  className="rounded-[10px] px-10 py-5 text-[17px] font-bold transition-all duration-300"
+  style={{
+    backgroundColor: colors.primary,
+    color: colors.white,
+    boxShadow: `0 12px 25px ${colors.primary}40`,
+  }}
+  onMouseEnter={(e) => {
+    e.currentTarget.style.boxShadow = `0 16px 32px ${colors.primary}66`;
+  }}
+  onMouseLeave={(e) => {
+    e.currentTarget.style.boxShadow = `0 12px 25px ${colors.primary}40`;
+  }}
+>
+  Subscribe Now
+</a>
         </div>
       </div>
     </section>

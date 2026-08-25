@@ -14,6 +14,8 @@ import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import ForgotPassword from "./components/ForgotPassword";
 import ResetPassword from "./components/ResetPassword";
+import Plan from "./pages/Plan";
+
 
 
 function Home() {
@@ -61,6 +63,7 @@ export default function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/plan" element={<Plan />} />
       </Routes>
     </BrowserRouter>
   );

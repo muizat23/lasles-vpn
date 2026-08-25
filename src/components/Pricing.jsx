@@ -1,6 +1,8 @@
 import React from "react";
 import theme from "../constants/theme";
 import Free from "../assets/images/Free.svg";
+import { Link } from "react-router-dom";
+
 
 const { colors } = theme;
 
@@ -138,24 +140,25 @@ function PlanCard({ plan }) {
         </p>
 
         {/* Select button */}
-        <button
-          className="mt-5 min-w-[170px] rounded-full border-2 px-8 py-3.5 text-[17px] font-semibold transition-all duration-300"
-          style={{
-            borderColor: colors.primary,
-            color: colors.primary,
-            backgroundColor: colors.white,
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = colors.primary;
-            e.currentTarget.style.color = colors.white;
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = colors.white;
-            e.currentTarget.style.color = colors.primary;
-          }}
-        >
-          Select
-        </button>
+        <Link
+  to="/plan"
+  className="mt-5 min-w-[170px] rounded-full border-2 px-8 py-3.5 text-[17px] font-semibold transition-all duration-300 text-center inline-block"
+  style={{
+    borderColor: colors.primary,
+    color: colors.primary,
+    backgroundColor: colors.white,
+  }}
+  onMouseEnter={(e) => {
+    e.currentTarget.style.backgroundColor = colors.primary;
+    e.currentTarget.style.color = colors.white;
+  }}
+  onMouseLeave={(e) => {
+    e.currentTarget.style.backgroundColor = colors.white;
+    e.currentTarget.style.color = colors.primary;
+  }}
+>
+  Select
+</Link>
 
       </div>
     </div>
