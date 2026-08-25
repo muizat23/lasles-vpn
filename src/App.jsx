@@ -1,3 +1,5 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Stats from "./components/Stats";
@@ -9,35 +11,55 @@ import Testimonials from "./components/Testimonials";
 import Subscribe from "./components/Subscribe";
 import Footer from "./components/Footer";
 
-function App() {
+import SignIn from "./components/SignIn";
+import SignUp from "./components/SignUp";
+
+function Home() {
   return (
-    <div className="min-h-screen pb-20 md:pb-0">
+    <>
       <Navbar />
 
-      <section id="about">
-        <Hero />
+      <main className="pt-[76px] md:pt-[90px] pb-[72px] md:pb-0">
+        <section id="about" className="scroll-mt-[90px]">
+          <Hero />
+        </section>
+
         <Stats />
-      </section>
 
-      <section id="features">
-        <Features />
-      </section>
+        <section id="features" className="scroll-mt-[90px]">
+          <Features />
+        </section>
 
-      <section id="pricing">
-        <Pricing />
-      </section>
+        <section id="pricing" className="scroll-mt-[90px]">
+          <Pricing />
+        </section>
 
-      <Network />
-      <Sponsors />
+        <Network />
 
-      <section id="testimonials">
-        <Testimonials />
-      </section>
+        <Sponsors />
 
-      <Subscribe />
-      <Footer />
-    </div>
+        <section id="testimonials" className="scroll-mt-[90px]">
+          <Testimonials />
+        </section>
+
+        <Subscribe />
+
+        <Footer />
+      </main>
+    </>
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+
+        <Route path="/signin" element={<SignIn />} />
+
+        <Route path="/signup" element={<SignUp />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
