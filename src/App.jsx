@@ -10,9 +10,11 @@ import Sponsors from "./components/Sponsors";
 import Testimonials from "./components/Testimonials";
 import Subscribe from "./components/Subscribe";
 import Footer from "./components/Footer";
-
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
+import ForgotPassword from "./components/ForgotPassword";
+import ResetPassword from "./components/ResetPassword";
+
 
 function Home() {
   return (
@@ -55,10 +57,10 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-
         <Route path="/signin" element={<SignIn />} />
-
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
       </Routes>
     </BrowserRouter>
   );

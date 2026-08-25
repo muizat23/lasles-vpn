@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Logo from "../assets/images/Logo.svg";
 import theme from "../constants/theme";
 import { supabase } from "../lib/supabase";
+// import { Link } from "react-router-dom";
 
 const { colors } = theme;
 
@@ -148,15 +149,13 @@ export default function SignIn() {
             </div>
 
             {/* Forgot password */}
-            <div className="flex justify-end mt-3">
-              <button
-                type="button"
-                className="text-[14px] font-medium"
-                style={{ color: colors.primary }}
-              >
-                Forgot password?
-              </button>
-            </div>
+            <Link
+            to="/forgot-password"
+            className="text-[14px] font-medium"
+            style={{ color: colors.primary }}
+          >
+            Forgot password?
+          </Link>
 
             {/* Sign In */}
             <button
