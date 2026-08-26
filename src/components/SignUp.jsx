@@ -190,7 +190,7 @@ export default function SignUp() {
                   name="password"
                   value={form.password}
                   onChange={handleChange}
-                  placeholder="Create a password"
+                  placeholder="***********"
                   className="w-full rounded-[8px] border border-[#DDDDDD] px-4 py-3.5 pr-16 text-[15px] outline-none focus:border-[#F53855]"
                 />
 
